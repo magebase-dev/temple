@@ -2,28 +2,48 @@
 
 A TypeScript CLI tool to clone, configure, and initialize repositories.
 
+
+## Features
+- Clone a repository from a given URL
+- (Planned) Configure and initialize the repository with custom options
+
 ## Usage
 
+### Install dependencies
 ```
-npx temple --repo <repository-url>
+npm install
 ```
 
-## Development
+### Build
+```
+npm run build
+```
 
-- Install dependencies: `npm install`
-- Run tests: `npm run test`
-- Build: `npm run build`
+### Run CLI (dev)
+```
+npm run dev -- --repo <repository-url>
+```
+
+### Run CLI (built)
+```
+node dist/index.js --repo <repository-url>
+```
+
+### Run tests
+```
+npm test
+```
 
 ## Environment Setup
+- Node.js >= 18
+- npm >= 9
 
-- Requires Node.js >= 18
-- Uses TypeScript, Vitest for testing, and ts-node for development
-
-## TDD Workflow
-
-- All features are developed using strict TDD (Red/Green/Refactor)
-- Tests are located in the `test/` directory
-- Run tests frequently to ensure correctness
+## TDD Usage
+- Write a failing test for the next smallest unit of behavior
+- Implement the simplest code to make the test pass
+- Run `npm test` to confirm all tests pass
+- Commit only on clean GREEN
+- Repeat for each new feature or behavior
 
 ---
 
