@@ -1,0 +1,25 @@
+{
+  "name": "temple",
+  "version": "0.1.0",
+  "description": "A TypeScript CLI tool to clone, configure, and initialize repositories.",
+  "main": "dist/index.js",
+  "bin": {
+    "temple": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": ["cli", "typescript", "git", "repo", "scaffold"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "simple-git": "^3.28.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0",
+    "ts-node": "^10.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
