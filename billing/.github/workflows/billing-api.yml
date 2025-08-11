@@ -1,0 +1,46 @@
+name: Billing API CI
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    # NOTE: The following secrets must be defined in your GitHub repository or organization settings for this workflow to work.
+    # If any are missing, the workflow will fail. Please add them as needed.
+    env:
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
+      CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
+      CLICKHOUSE_DB: ${{ secrets.CLICKHOUSE_DB }}
+      VICTORIA_TRACES_ENDPOINT: ${{ secrets.VICTORIA_TRACES_ENDPOINT }}
+      VICTORIA_METRICS_ENDPOINT: ${{ secrets.VICTORIA_METRICS_ENDPOINT }}
+      VICTORIA_LOGS_ENDPOINT: ${{ secrets.VICTORIA_LOGS_ENDPOINT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+      - name: Run tests
+        run: go test ./...
+      - name: Build Go project
+        run: go build ./...
+
+  # docker-build-and-trivy:
+  #   uses: ./.github/workflows/docker-build-and-trivy.yml
+  #   with:
+  #     image_name: ghcr.io/${{ github.repository }}
+  #     docker_context: ./apis/billing
+  # NOTE: The above job is commented out because the referenced workflow file is missing or not a valid reusable workflow. Please add the file or update the reference if needed.
